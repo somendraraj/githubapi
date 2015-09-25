@@ -45,27 +45,27 @@ $scope.viewissues = function(url){
    console.log('Button is clicked!!!');
    console.log(url);
     $scope.loader = true;
-    $scope.sevendaycount = 0;
-    $scope.onedaycount = 0;
+    $scope.sevendaycount = 0;                            //variable to store sevendaycount
+    $scope.onedaycount = 0;                              //variable to store onedaycount
     $scope.pulls = 0;
-    var newurl = 'https://api.github.com/repos/' + url + '/issues';
-    var baseurl = 'https://api.github.com/repos/' + url;
+    var newurl = 'https://api.github.com/repos/' + url + '/issues';       //url of issues
+    var baseurl = 'https://api.github.com/repos/' + url;                  //url for repo
     console.log(newurl);
 
     
     var d = new Date();
-    d.setDate(d.getDate()-1);
+    d.setDate(d.getDate()-1);				//last 24 hours
     d = d.toISOString();
     var d2 = new Date();
-    d2.setDate(d2.getDate()-7);
+    d2.setDate(d2.getDate()-7);				//last 7 days
     d2 = d2.toISOString();
     var _count = 1;
     var _count2 = 1;
     var _count3 = 1;
     getbasicdata(baseurl);
-    getsingledayissues(newurl, d, _count);
-    getsevendayissues(newurl, d2, _count2);
-    getpulls(baseurl + '/pulls' , _count3);
+    getsingledayissues(newurl, d, _count);                                  //function to get all single day issue
+    getsevendayissues(newurl, d2, _count2);                                 //function to get seven day issue
+    getpulls(baseurl + '/pulls' , _count3);                                 //function to get pull requests 
 
 
 }
@@ -78,7 +78,7 @@ var getsingledayissues = function(url , date, _count){
 
         console.log(results.data);
         _count += 1;
-
+						
         results.data.forEach(function(entry){
          
          console.log(entry.pull_request);
@@ -118,7 +118,7 @@ var getsevendayissues = function(url , date, _count2){
 
         console.log(results.data);
         _count2 += 1;
-
+								//itterating the whole object to filter pull requests
         results.data.forEach(function(entry){
          
           var _before7day = Date.parse(date);
