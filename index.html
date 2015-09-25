@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then remove the CSS include above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+	<style>
+table, th, td {
+    border: 1px solid #0000FF;
+}
+</style>
+
+<style type="text/css">
+   .centerText{
+       text-align: center;
+	   vertical-align:middle;
+	  font-weight: bold;
+    }
+	</style>
+	
+  </head>
+
+  <body ng-app="starter"  ng-controller="myCtrl">
+    <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">Github API</h1>
+      </ion-header-bar>
+      <ion-content class="has-header">
+	   <div class="list" >
+  <label class="item item-input">
+    <span class="input-label">Enter URL</span>
+	http://github.com/
+    <input type="text" ng-model="url" placeholder="............">
+  </label>
+  
+  
+  <button class="button button-block button-positive" ng-click="viewissues(url) ; issues = 'true'">
+  Get Info
+</button>
+</div>
+	 
+	<div ng-show="issues">
+                <div class="panel panel-info" style="position:relative;">
+                    <div ng-show="loader" style="text-align:center">
+                      <img src="loader.gif">
+                    </div>
+                    <div ng-show="!loader" class="panel-body">
+                      
+					  
+					   <div align="center">
+		 
+		                  <img ng-src="{{repo.owner.avatar_url}}" title="{{repo.name}}" height="100" width="100">
+		 
+		                 </div>
+					  
+                     <div align="center">
+	                  <strong>NAME:</strong>
+	                         <br>
+	                          <p>{{repo.name}}</p>
+	                   </div>
+                      <div style="position:absolute; right:15px; top:15px; width:300px;">
+                        Updated:<strong> {{repo.updated_at | date: 'M/d/yy h:mm a'}}</strong>
+                        <br>
+                        
+                      </div>
+					   <div align="center">
+	                  <strong>Description:</strong>
+	                         <br>
+	                          <p>{{repo.description}}</p>
+	                   </div>
+					   <div align="center">
+					   
+					   <table  width="600" height="200">
+					   <tr>
+					   <td bgcolor="#66FFFF" class="centerText">
+					   Open Issues
+					   </td>
+					   <td bgcolor="#99FF33" class="centerText">
+					   {{repo.open_issues_count - pulls}}
+					   </td>
+					   </tr>
+					   <tr>
+					   <td bgcolor="#66FFFF" class="centerText">
+					   Last 24 hour Issue
+					   </td>
+					  <td bgcolor="#99FF33" class="centerText">
+					   {{onedaycount}}
+					   </td>
+					   
+					   </tr>
+					   <tr>
+					  <td bgcolor="#66FFFF" class="centerText">
+					  Issues between 24 hour to 7 days:
+					  
+					   </td>
+					   <td bgcolor="#99FF33" class="centerText">
+					   {{sevendaycount - onedaycount}}
+					   
+					   </td>
+					   </tr>
+					   <tr>
+					    <td bgcolor="#66FFFF" class="centerText">
+					   Issues older than 7 days
+					   
+					   </td>
+					   <td bgcolor="#99FF33" class="centerText">
+					   {{repo.open_issues_count - sevendaycount - pulls}}
+					   </td>
+					   </tr>
+					   
+					   
+					   </table>
+					   
+					   
+					   </div>
+					   
+					   
+                    
+
+                    </div>
+                  </div>
+
+            </div>	   
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
